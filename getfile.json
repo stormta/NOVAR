@@ -1,7 +1,6 @@
 {
     "result": true,
     "plugins_": {
-        "help_rep.lua": "STORMCLI",
         "games.lua":"STORMCLI"
     }
 }
