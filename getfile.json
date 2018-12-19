@@ -2,5 +2,6 @@
     "result": true,
     "plugins_": {
         "games.lua":"STORMCLI"
+        "ZHRFA.lua":"STORMCLI"
     }
 }
