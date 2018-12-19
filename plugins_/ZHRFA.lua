@@ -1,4 +1,5 @@
 local function zhrfa(msg)
+if chat_type == 'super' then 
 if text == 'تفعيل الزخرفه' and is_mod(msg) then   
 if tahadevstorm:get(DEVSTOR..'lock:skrfa'..msg.chat_id_)  then
 taha = '*📮¦ تم تفعيل الزخرفه *\n✓' 
@@ -1317,6 +1318,7 @@ local TEXT_end = '*\nٴ━━━━━━━━━━\n📌¦ مطور البو�
 local SEND_SKRF = TEXTSHER..'*1 »* `'..zhrf1..' '..RANDROM[math.random(#RANDROM)]..'`\n*2 »* `'..zhrf2..' '..RANDROM[math.random(#RANDROM)]..'`\n*3 »* `'..zhrf3..' '..RANDROM[math.random(#RANDROM)]..'`\n*4 »* `'..zhrf4..' '..RANDROM[math.random(#RANDROM)]..'`\n*5 »* `'..zhrf5..' '..RANDROM[math.random(#RANDROM)]..'`\n*6 »* `'..zhrf6..' '..RANDROM[math.random(#RANDROM)]..'`\n*7 »* `'..zhrf7..' '..RANDROM[math.random(#RANDROM)]..'`\n*8 »* `'..zhrf8..' '..RANDROM[math.random(#RANDROM)]..'`\n*9 »* `'..zhrf9..' '..RANDROM[math.random(#RANDROM)]..'`\n*10 »* `'..zhrf10..' '..RANDROM[math.random(#RANDROM)]..'`\n*11 »* `'..zhrf11..' '..RANDROM[math.random(#RANDROM)]..'`\n*12 »* `'..zhrf12..' '..RANDROM[math.random(#RANDROM)]..'`\n*13 »* `'..zhrf13..' '..RANDROM[math.random(#RANDROM)]..'`\n*14 »* `'..zhrf14..' '..RANDROM[math.random(#RANDROM)]..'`\n*15 »* `'..zhrf15..' '..RANDROM[math.random(#RANDROM)]..'`\n*16 »* `'..zhrf16..' '..RANDROM[math.random(#RANDROM)]..'`\n*17 »* `'..zhrf17..' '..RANDROM[math.random(#RANDROM)]..'`\n*18 »* `'..zhrf18..' '..RANDROM[math.random(#RANDROM)]..'`'..TEXT_end
 storm_sendMsg(msg.chat_id_, msg.id_, 1, SEND_SKRF,  1, "md")
 tahadevstorm:del(DEVSTOR.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
+end
 end
 end
 end
