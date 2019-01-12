@@ -24,49 +24,10 @@ NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `ترتيب` \n', 1, 'md')
 end 
 
-if tahadevstorm:get(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
-if text and text:match("^الغاء$") then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📬¦ تم الغاء الامر *\n✓", 1, 'md')
-tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)
-return false  end 
-if text and text:match("^(%d+)$") then
-local NUM = text:match("^(%d+)$") 
-if tonumber(NUM) > 6 then
-storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📬¦ عذرا لا يوجد سواء { 6 } اختيارات فقط ارسل اختيارك مره اخره*\n", 1, 'md')
-return false  end 
-local GETNUM = tahadevstorm:get(DEVSTOR.."GAMES"..msg.chat_id_)
-if tonumber(NUM) == tonumber(GETNUM) then
-tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ مبروك فزت وطلعت المحيبس بل ايد رقم { '..NUM..' }\n🎊¦ قد حصلت على { 3 } من النقود يمكنك استبدالهن برسائل *', 1, 'md')
-tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 3)  
-elseif tonumber(NUM) ~= tonumber(GETNUM) then
-tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'\n*📮¦ للاسف لقد خسرت \n📬¦ المحيبس بل ايد رقم { '..GETNUM..' }\n💥¦ حاول مره اخرى للعثور على المحيبس *', 1, 'md')
-end
-end
-end
-
 end
 end
 local function GAMES(msg, MSG_TEXT)
 if chat_type == 'super' then 
-if MSG_TEXT[1] == 'محيبس' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
-Num = math.random(1,6)
-tahadevstorm:set(DEVSTOR.."GAMES"..msg.chat_id_,Num) 
-TEST = [[
-*➀       ➁     ➂      ➃      ➄     ➅
-↓      ↓     ↓      ↓     ↓     ↓
-👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊
-
-
-📮¦ اختر لأستخراج المحيبس الايد التي تحمل المحيبس 
-🎁¦ الفائز يحصل على { 3 } من النقود *
-]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,TEST, 1, 'md')
-tahadevstorm:setex(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
-return false  
-end
-
 if MSG_TEXT[1] == 'الاسرع' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
 tahadevstorm:del(DEVSTOR..'SMALE:GAMES'..msg.chat_id_)
 katu = {'🍏','🍎','843578','9755','25677','578866','14589','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥒','🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🥪','🥙','🍼','☕️','🍵','🥤','🍶','🍺','🍻','🏀','⚽️','🏈','⚾️','🎾','🏐','🏉','🎱','🏓','🏸','🥅','🎰','🎮','🎳','🎯','🎲','🎻','🎸','🎺','🥁','🎹','🎼','🎧','🎤','🎬','🎨','🎭','🎪','🎟','🎫','🎗','🏵','🎖','🏆','🥌','🛷','🚕','7643','93289','3457','95439','378865','24568','9976','289','2288','2854','🚗','🚙','🚌','🚎','🏎','🚓','🚑','🚚','🚛','🚜','🇮🇶','⚔','🛡','🔮','🌡','💣','📌','📍','📓','📗','📂','📅','📪','📫','📬','📭','⏰','📺','🎚','☎️','📡'}
