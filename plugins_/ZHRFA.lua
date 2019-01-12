@@ -1,33 +1,5 @@
-local function zhrfa(msg)
+local function GET_TEXT(msg)
 if chat_type == 'super' then 
-if text == 'تفعيل الزخرفه' and is_mod(msg) then   
-if tahadevstorm:get(DEVSTOR..'lock:skrfa'..msg.chat_id_)  then
-taha = '*📮¦ تم تفعيل الزخرفه *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-tahadevstorm:del(DEVSTOR..'lock:skrfa'..msg.chat_id_) 
-else
-taha = '*📮¦ بالتاكيد تم تفعيل الزخرفه  *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-end
-return false
-end
-if text == 'تعطيل الزخرفه' and is_mod(msg) then   
-if not tahadevstorm:get(DEVSTOR..'lock:skrfa'..msg.chat_id_)  then
-taha = '*📮¦ تم تعطيل الزخرفه *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-tahadevstorm:set(DEVSTOR..'lock:skrfa'..msg.chat_id_,true) 
-else
-taha = '*📮¦ بالتاكيد تم تعطيل الزخرفه  *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-end
-return false
-end
-if text and text:match("^زخرفه$") and not tahadevstorm:get(DEVSTOR.."lock:skrfa"..msg.chat_id_) then   
-tahadevstorm:setex(DEVSTOR.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)   
-local t = '*⚡¦* ارسل الاسم الذي تريد زخرفته \n*📬¦* سواء كان بالعربي او بالانكلش 🍁'   
-storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
-return false
-end
 if tahadevstorm:get(DEVSTOR.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then   
 if text and text:match("^الغاء$") then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*💥¦* تم الغاء امر الزخرفه ✔", 1, "md")
@@ -1322,4 +1294,55 @@ end
 end
 end
 end
-return {THESTORM=zhrfa,}
+local function zhrfa(msg)
+if chat_type == 'super' then 
+if MSG_TEXT[1] == 'تفعيل الزخرفه' and is_mod(msg) then   
+if tahadevstorm:get(DEVSTOR..'lock:skrfa'..msg.chat_id_)  then
+taha = '*📮¦ تم تفعيل الزخرفه *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+tahadevstorm:del(DEVSTOR..'lock:skrfa'..msg.chat_id_) 
+else
+taha = '*📮¦ بالتاكيد تم تفعيل الزخرفه  *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+end
+return false
+end
+if MSG_TEXT[1] == 'تعطيل الزخرفه' and is_mod(msg) then   
+if not tahadevstorm:get(DEVSTOR..'lock:skrfa'..msg.chat_id_)  then
+taha = '*📮¦ تم تعطيل الزخرفه *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+tahadevstorm:set(DEVSTOR..'lock:skrfa'..msg.chat_id_,true) 
+else
+taha = '*📮¦ بالتاكيد تم تعطيل الزخرفه  *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+end
+return false
+end
+if MSG_TEXT[1] == ("زخرفه") or MSG_TEXT[1] == ("زخرف") then
+if not tahadevstorm:get(DEVSTOR.."lock:skrfa"..msg.chat_id_) then   
+tahadevstorm:setex(DEVSTOR.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)   
+local t = '*⚡¦* ارسل الاسم الذي تريد زخرفته \n*📬¦* سواء كان بالعربي او بالانكلش 🍁'   
+storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
+else
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ الزخرفه معطله *', 1, 'md') 
+end
+return false
+end
+
+
+
+end
+end
+
+return {
+CMDS = {
+"^(زخرفه)$",
+"^(زخرف)$",
+"^(تفعيل الزخرفه)$",
+"^(تعطيل الزخرفه)$",
+},
+STORM = zhrfa,
+STORM_TEXT = GET_TEXT
+}
+
+

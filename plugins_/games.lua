@@ -1,22 +1,80 @@
 --[[
 
 --]]
-
-local function games(msg)
+local function GET_TEXT(msg)
 if chat_type == 'super' then 
-if text == 'الاسرع' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
-tahadevstorm:del(DEVSTOR..'SMALE:GAMES'..msg.chat_id_)
-katu = {'🍏','🍎','843578','9755','25677','578866','14589','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥒','🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🥪','🥙','🍼','☕️','🍵','🥤','🍶','🍺','🍻','🏀','⚽️','🏈','⚾️','🎾','🏐','🏉','🎱','🏓','🏸','🥅','🎰','🎮','🎳','🎯','🎲','🎻','🎸','🎺','🥁','🎹','🎼','🎧','🎤','🎬','🎨','🎭','🎪','🎟','🎫','🎗','🏵','🎖','🏆','🥌','🛷','🚕','7643','93289','3457','95439','378865','24568','9976','289','2288','2854','🚗','🚙','🚌','🚎','🏎','🚓','🚑','🚚','🚛','🚜','🇮🇶','⚔','🛡','🔮','🌡','💣','📌','📍','📓','📗','📂','📅','📪','📫','📬','📭','⏰','📺','🎚','☎️','📡'}
-tahadevstorm:set(DEVSTOR..'SMALE:GAME'..msg.chat_id_,katu[math.random(#katu)])
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'اسرع واحد يدز هذهہٓ ››  `'..tahadevstorm:get(DEVSTOR..'SMALE:GAME'..msg.chat_id_)..'`', 1, 'md')
-end
 if text == ''..(tahadevstorm:get(DEVSTOR..'SMALE:GAME'..msg.chat_id_) or '')..'' and not tahadevstorm:get(DEVSTOR..'SMALE:GAMES'..msg.chat_id_) then
 tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 1)  
 tahadevstorm:set(DEVSTOR..'SMALE:GAMES'..msg.chat_id_,true)
 NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_))
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `الاسرع` \n', 1, 'md')
 end 
-if text == 'معاني' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
+
+if text == ''..(tahadevstorm:get(DEVSTOR..'CHEK:CHER'..msg.chat_id_) or '')..'' and not tahadevstorm:get(DEVSTOR..'RTEP:CHER'..msg.chat_id_) then
+tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 1)  
+tahadevstorm:set(DEVSTOR..'RTEP:CHER'..msg.chat_id_,true)
+NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_))
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `معاني` \n', 1, 'md')
+end 
+
+if text == ''..(tahadevstorm:get(DEVSTOR..'klmo'..msg.chat_id_) or 'لفاتع')..'' and not tahadevstorm:get(DEVSTOR..'CHER:GAME'..msg.chat_id_) then
+tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 1)  
+tahadevstorm:set(DEVSTOR..'CHER:GAME'..msg.chat_id_,true)
+NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_) or 0)
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `ترتيب` \n', 1, 'md')
+end 
+
+if tahadevstorm:get(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
+if text and text:match("^الغاء$") then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📬¦ تم الغاء الامر *\n✓", 1, 'md')
+tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)
+return false  end 
+if text and text:match("^(%d+)$") then
+local NUM = text:match("^(%d+)$") 
+if tonumber(NUM) > 6 then
+storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📬¦ عذرا لا يوجد سواء { 6 } اختيارات فقط ارسل اختيارك مره اخره*\n", 1, 'md')
+return false  end 
+local GETNUM = tahadevstorm:get(DEVSTOR.."GAMES"..msg.chat_id_)
+if tonumber(NUM) == tonumber(GETNUM) then
+tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ مبروك فزت وطلعت المحيبس بل ايد رقم { '..NUM..' }\n🎊¦ قد حصلت على { 3 } من النقود يمكنك استبدالهن برسائل *', 1, 'md')
+tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 3)  
+elseif tonumber(NUM) ~= tonumber(GETNUM) then
+tahadevstorm:del(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'\n*📮¦ للاسف لقد خسرت \n📬¦ المحيبس بل ايد رقم { '..GETNUM..' }\n💥¦ حاول مره اخرى للعثور على المحيبس *', 1, 'md')
+end
+end
+end
+
+end
+end
+local function GAMES(msg, MSG_TEXT)
+if chat_type == 'super' then 
+if MSG_TEXT[1] == 'محيبس' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
+Num = math.random(1,6)
+tahadevstorm:set(DEVSTOR.."GAMES"..msg.chat_id_,Num) 
+TEST = [[
+*➀       ➁     ➂      ➃      ➄     ➅
+↓      ↓     ↓      ↓     ↓     ↓
+👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊
+
+
+📮¦ اختر لأستخراج المحيبس الايد التي تحمل المحيبس 
+🎁¦ الفائز يحصل على { 3 } من النقود *
+]]
+storm_sendMsg(msg.chat_id_, msg.id_, 1,TEST, 1, 'md')
+tahadevstorm:setex(DEVSTOR.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
+return false  
+end
+
+if MSG_TEXT[1] == 'الاسرع' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
+tahadevstorm:del(DEVSTOR..'SMALE:GAMES'..msg.chat_id_)
+katu = {'🍏','🍎','843578','9755','25677','578866','14589','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥒','🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🥪','🥙','🍼','☕️','🍵','🥤','🍶','🍺','🍻','🏀','⚽️','🏈','⚾️','🎾','🏐','🏉','🎱','🏓','🏸','🥅','🎰','🎮','🎳','🎯','🎲','🎻','🎸','🎺','🥁','🎹','🎼','🎧','🎤','🎬','🎨','🎭','🎪','🎟','🎫','🎗','🏵','🎖','🏆','🥌','🛷','🚕','7643','93289','3457','95439','378865','24568','9976','289','2288','2854','🚗','🚙','🚌','🚎','🏎','🚓','🚑','🚚','🚛','🚜','🇮🇶','⚔','🛡','🔮','🌡','💣','📌','📍','📓','📗','📂','📅','📪','📫','📬','📭','⏰','📺','🎚','☎️','📡'}
+tahadevstorm:set(DEVSTOR..'SMALE:GAME'..msg.chat_id_,katu[math.random(#katu)])
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'اسرع واحد يدز هذهہٓ ››  `'..tahadevstorm:get(DEVSTOR..'SMALE:GAME'..msg.chat_id_)..'`', 1, 'md')
+end
+
+if MSG_TEXT[1] == 'معاني' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
 tahadevstorm:del(DEVSTOR..'RTEP:CHER'..msg.chat_id_)
 katu = {'قرد','دجاجه','بطريق','ضفدع','بومه','نحله','ديج','جمل','بقره','دولفين','تمساح','قرش','نمر','اخطبوط','سمكه','خفاش','اسد','فأر','ذئب','فراشه','عقرب','زرافه','قنفذ','تفاحه','باذنجان'}
 name = katu[math.random(#katu)]
@@ -48,13 +106,8 @@ name = string.gsub(name,'تفاحه','🍎')
 name = string.gsub(name,'باذنجان','🍆')
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'اسرع واحد يدز معنى السمايل يفوز » { '..name..' }', 1, 'md')
 end
-if text == ''..(tahadevstorm:get(DEVSTOR..'CHEK:CHER'..msg.chat_id_) or '')..'' and not tahadevstorm:get(DEVSTOR..'RTEP:CHER'..msg.chat_id_) then
-tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 1)  
-tahadevstorm:set(DEVSTOR..'RTEP:CHER'..msg.chat_id_,true)
-NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_))
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `معاني` \n', 1, 'md')
-end 
-if text == 'ترتيب' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
+
+if MSG_TEXT[1] == 'ترتيب' and not tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
 tahadevstorm:del(DEVSTOR..'CHER:GAME'..msg.chat_id_)
 katu = {'سحور','سياره','استقبال','قنفه','ايفون','بزونه','مطبخ','كرستيانو','دجاجه','مدرسه','الوان','غرفه','ثلاجه','كهوه','سفينه','العراق','محطه','طياره','رادار','منزل','مستشفى','كهرباء','تفاحه','اخطبوط','سلمون','فرنسا','برتقاله','تفاح','مطرقه','بتيته','لهانه','شباك','باص','سمكه','ذباب','تلفاز','حاسوب','انترنيت','ساحه','جسر'};
 name = katu[math.random(#katu)]
@@ -101,13 +154,8 @@ name = string.gsub(name,'ساحه','ح ا ه س')
 name = string.gsub(name,'جسر','ر ج س')
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*💥¦ اسرع واحد يرتب هاي الكلمه » {'..name..'} يفوز 🎉*\n', 1, 'md')
 end
-if text == ''..(tahadevstorm:get(DEVSTOR..'klmo'..msg.chat_id_) or 'لفاتع')..'' and not tahadevstorm:get(DEVSTOR..'CHER:GAME'..msg.chat_id_) then
-tahadevstorm:incrby(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_, 1)  
-tahadevstorm:set(DEVSTOR..'CHER:GAME'..msg.chat_id_,true)
-NUMPGAME = (tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_) or 0)
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'*🎊¦ مبروك فزت 🍂\n🎁¦ اصبح عدد نقودك » { '..NUMPGAME..' }\n🎭¦* للعب مره اخرى ارسل `ترتيب` \n', 1, 'md')
-end 
-if text =='نقودي' then 
+
+if MSG_TEXT[1] =='نقودي' then 
 if tonumber((tahadevstorm:get(DEVSTOR..'NUM:GAMES'..msg.chat_id_..msg.sender_user_id_) or 0)) == 0 then
 storm_sendMsg(msg.chat_id_, msg.id_, 1, ' *💬¦ ليس لديك نقود ،\n📬¦ للحصول ؏ النقود ،\n📮¦ ارسل الالعاب وابدأ اللعب ! *', 1, 'md') 
 else
@@ -116,8 +164,8 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ عدد النقود التي ر�
 end
 end
 
-if text and text:match('^بيع نقودي (%d+)$') then 
-local NUMPY = text:match('^بيع نقودي (%d+)$')
+if MSG_TEXT[1] == ('بيع نقودي') then 
+local NUMPY = MSG_TEXT[2]
 if tonumber(NUMPY) == (0) then
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"\n*📮¦ لا استطيع البيع اقل من 1 \n*", 1, 'md') 
 return false end
@@ -135,7 +183,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,'\n*📬¦ تم خصم » { '..NUMPY..' }
 end return false 
 end
 
-if text == 'تفعيل الالعاب' or text == 'تفعيل اللعبه' then
+if MSG_TEXT[1] == 'تفعيل الالعاب' or MSG_TEXT[1] == 'تفعيل اللعبه' then
 if not is_monsh(msg) then   
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"\n*📮¦ هاذا الامر خاص للمدراء فما فوق\n*", 1, 'md') 
 return false  end 
@@ -149,7 +197,7 @@ storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")
 end
 end
 
-if text == 'تعطيل الالعاب' or text == 'تعطيل اللعبه' then
+if MSG_TEXT[1] == 'تعطيل الالعاب' or MSG_TEXT[1] == 'تعطيل اللعبه' then
 if not is_monsh(msg) then   
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"\n*📮¦ هاذا الامر خاص للمدراء فما فوق\n*", 1, 'md') 
 return false  end 
@@ -163,7 +211,7 @@ storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")
 end
 end
 
-if text == 'الالعاب' or text == 'اللعبه' then
+if MSG_TEXT[1] == 'الالعاب' or MSG_TEXT[1] == 'اللعبه' then
 if tahadevstorm:get(DEVSTOR.."LOCK:GAMES"..msg.chat_id_) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"\n*📮¦ الالعاب تم تعطيلها هنا \n*", 1, 'md') 
 else
@@ -179,7 +227,26 @@ local COMGAME = [[*
 storm_sendMsg(msg.chat_id_, msg.id_, 1,COMGAME, 1, 'md') 
 end
 end
-end
 
 end
-return {THESTORM=games,}
+end
+return {
+CMDS = {
+"^(محيبس)$",
+"^(الاسرع)$",
+"^(ترتيب)$",
+"^(معاتي)$",
+"^(نقودي)$",
+"^(تفعيل اللعبه)$",
+"^(تفعيل الالعاب)$",
+"^(تعطيل اللعبه)$",
+"^(تعطيل الالعاب)$",
+"^(اللعبه)$",
+"^(الالعاب)$",
+"^(بيع نقودي) (%d+)$",
+},
+STORM = GAMES,
+STORM_TEXT = GET_TEXT
+}
+
+
